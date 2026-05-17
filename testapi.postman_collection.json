@@ -1,0 +1,322 @@
+{
+  "info": {
+    "_postman_id": "3aae0f03-21b9-4f47-8055-ca891fe4e9e0",
+    "name": "testapi",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29551252"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"first_name\": \"อัษฎาวุธ\",\r\n        \"last_name\": \"ไพจิตร\",\r\n        \"email\": \"taotests@gmail.com\",\r\n        \"tel\": \"0888888889\",\r\n        \"password\": \"Asadawuth4..\",\r\n        \"role\": \"MANAGER\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/users/register",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["users", "register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"identifier\": \"taodewy@gmail.com\",\r\n  \"password\": \"Itaosd41.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/users/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["users", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "logout",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJNQU5BR0VSIiwiaWF0IjoxNzc5MDEzMDU4LCJleHAiOjE3NzkwMTM5NTh9.yFKuP2ykeIrLE3zKaf3i5T7FsbJ4n9hbrFEwZ5tSFl0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"first_name\": \"Asadawutdw\",\r\n        \"last_name\": \"Paijiss\",\r\n        \"email\": \"taodessd@gmail.com\",\r\n        \"tel\": \"0585485478\",\r\n        \"password\": \"Asadawuth41\",\r\n        \"role\": \"MANAGER\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/users/logout",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["users", "logout"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "logoutAll",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJNQU5BR0VSIiwiaWF0IjoxNzc5MDEzODIzLCJleHAiOjE3NzkwMTQ3MjN9.S5J1tI2UOeAFbhHLltG6tsIIZ1TMrgcfWgPizQLC-bE",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"first_name\": \"Asadawutdw\",\r\n        \"last_name\": \"Paijiss\",\r\n        \"email\": \"taodessd@gmail.com\",\r\n        \"tel\": \"0585485478\",\r\n        \"password\": \"Asadawuth41\",\r\n        \"role\": \"MANAGER\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/users/logoutall",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["users", "logoutall"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "created list moive",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"first_name\": \"Asadawutdw\",\r\n        \"last_name\": \"Paijiss\",\r\n        \"email\": \"taodessd@gmail.com\",\r\n        \"tel\": \"0585485478\",\r\n        \"password\": \"Asadawuth41\",\r\n        \"role\": \"MANAGER\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/listmovie/getlistmovie\"",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["listmovie", "getlistmovie\""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "checkapi",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": [""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "check list moive",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": [""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "changePassword",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJNQU5BR0VSIiwiaWF0IjoxNzc5MDE3NTcwLCJleHAiOjE3NzkwMTg0NzB9.zTtDMaz1RbDljHC4oxEo5N8ei76_DcCBQlbxUvwgM1o",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"oldPassword\" : \"Asadawuth41.\",\r\n  \"newPassword\" : \"Itaosd41.\",\r\n  \"confirmPassword\" : \"Itaosd41.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/users/changepassword",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["users", "changepassword"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "changedatauser",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJNQU5BR0VSIiwiaWF0IjoxNzc5MDM1MTA0LCJleHAiOjE3NzkwMzYwMDR9.gh7QgoW3_ipKI02vhb58psrlryxUnSZUaTFOuWE-zCE",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"first_name\": \"Tao\",\r\n  \"last_name\": \"Asadawuth\",\r\n  \"tel\": \"0859300756\",\r\n  \"email\": \"taodewy@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/users/updatesuser",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["users", "updatesuser"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "changeIdMoiveId",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJNQU5BR0VSIiwiaWF0IjoxNzc5MDM1MTA0LCJleHAiOjE3NzkwMzYwMDR9.gh7QgoW3_ipKI02vhb58psrlryxUnSZUaTFOuWE-zCE",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"first_name\": \"Tao\",\r\n  \"last_name\": \"Asadawuth\",\r\n  \"tel\": \"0859300756\",\r\n  \"email\": \"taodewy@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/users/updatesuser",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["users", "updatesuser"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    }
+  ]
+}

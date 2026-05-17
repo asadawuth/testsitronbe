@@ -1,0 +1,84 @@
+Link1 -
+https://www.16personalities.com/th/%E0%B8%9C%E0%B8%A5%E0%B8%97%E0%B8%94%E0%B8%AA%E0%B8%AD%E0%B8%9A%E0%B8%9A%E0%B8%B8%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%81%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B8%E0%B8%93/entj-a/m/dhew54ezy
+
+// ตาราง admin_moive
+-- =========================
+-- ENUM (SAFE)
+-- =========================
+DO $$ BEGIN
+  CREATE TYPE user_role AS ENUM (
+    'MANAGER',
+    'TEAMLEADER',
+    'FLOORSTAFF'
+  );
+EXCEPTION
+  WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+  CREATE TYPE movie_rating AS ENUM (
+    'G',
+    'PG',
+    'M',
+    'MA',
+    'R'
+  );
+EXCEPTION
+  WHEN duplicate_object THEN null;
+END $$;
+
+-- =========================
+-- TABLE USERS
+-- =========================
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(60) NOT NULL,
+  last_name VARCHAR(60) NOT NULL,
+  tel VARCHAR(10) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  role user_role NOT NULL DEFAULT 'FLOORSTAFF',
+  created_at TIMESTAMP DEFAULT NOW() NOT NULL,
+  updated_at TIMESTAMP DEFAULT NOW() NOT NULL
+);
+
+-- =========================
+-- TABLE MOVIES
+-- =========================
+CREATE TABLE IF NOT EXISTS movies (
+  id SERIAL PRIMARY KEY,
+  user_admin INTEGER NOT NULL REFERENCES users(id),
+  title VARCHAR(200) NOT NULL,
+  release_year VARCHAR(4) NOT NULL,
+  type_movie movie_rating NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW() NOT NULL
+);
+
+-- =========================
+-- TABLE HISTORY
+-- =========================
+CREATE TABLE IF NOT EXISTS history (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id),
+  movie_id INTEGER REFERENCES movies(id),
+  action VARCHAR(20) NOT NULL,
+  old_data JSON,
+  new_data JSON,
+  created_at TIMESTAMP DEFAULT NOW() NOT NULL
+);
+
+-- =========================
+-- TABLE REFRESH TOKENS
+-- =========================
+CREATE TABLE IF NOT EXISTS refresh_tokens (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  token VARCHAR(255) NOT NULL,
+  device VARCHAR(100),
+  is_revoked BOOLEAN DEFAULT FALSE NOT NULL,
+  expires_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT NOW() NOT NULL
+);
+//
+
+
