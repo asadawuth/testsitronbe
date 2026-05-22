@@ -23,12 +23,13 @@ router.patch(
   "/changepassword",
   authMiddleware,
   validate(changePasswordSchema),
-  userController.changePassword,
+  userController.changePassword
 );
 router.patch(
   "/updatesuser",
   authMiddleware,
   validate(updateUserSchema),
-  userController.updateUser,
+  userController.updateUser
 );
+router.get("/userststem", authMiddleware, userController.userSystem);
 export default router;

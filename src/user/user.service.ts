@@ -2,8 +2,13 @@ import { prisma } from "../model/prisma";
 import { registerAdminDto, UpdateUserDto } from "./user.dto";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { LoginResponse, RegisterResponse, ChangePasswordDto } from "./usertype";
-
+import {
+  LoginResponse,
+  RegisterResponse,
+  ChangePasswordDto,
+  UserSystemResponse,
+} from "./usertype";
+import { getPagination, paginationMeta } from "../utils/pagination";
 export class UserService {
   async register(data: registerAdminDto): Promise<RegisterResponse> {
     const exists = await prisma.users.findFirst({
@@ -33,7 +38,7 @@ export class UserService {
   async login(
     data: { identifier: string; password: string },
     device?: string,
-    ipAddress?: string,
+    ipAddress?: string
   ): Promise<LoginResponse> {
     const { identifier, password } = data;
     const user = await prisma.users.findFirst({
@@ -60,7 +65,7 @@ export class UserService {
       process.env.JWT_SECRET!,
       {
         expiresIn: "15m",
-      },
+      }
     );
 
     const refreshToken = jwt.sign(
@@ -70,15 +75,16 @@ export class UserService {
       process.env.JWT_REFRESH_SECRET!,
       {
         expiresIn: "7d",
-      },
+      }
     );
 
     await prisma.refresh_tokens.create({
       data: {
         user_id: user.id,
         token: refreshToken,
-        device: device || "unknown-device",
+        device: device?.slice(0, 100) || "unknown-device",
         expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        // expires_at: new Date(Date.now() + 5 * 60 * 1000),
       },
     });
 
@@ -99,13 +105,12 @@ export class UserService {
   async logout(token: string) {
     await prisma.refresh_tokens.updateMany({
       where: {
-        token,
+        token: token,
       },
       data: {
         is_revoked: true,
       },
     });
-
     return {
       message: "logout success",
     };
@@ -134,20 +139,15 @@ export class UserService {
         is_revoked: false,
       },
     });
-
     if (!storedToken) {
       throw new Error("Invalid refresh token");
     }
-
     const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET!) as {
       userId: number;
     };
     const user = await prisma.users.findUnique({
-      where: {
-        id: decoded.userId,
-      },
+      where: { id: decoded.userId },
     });
-
     if (!user) {
       throw new Error("User not found");
     }
@@ -158,9 +158,7 @@ export class UserService {
         role: user.role,
       },
       process.env.JWT_SECRET!,
-      {
-        expiresIn: "15m",
-      },
+      { expiresIn: "15m" }
     );
 
     return {
@@ -241,6 +239,50 @@ export class UserService {
     return {
       message: "อัปเดตข้อมูลสำเร็จ",
       user: updatedUser,
+    };
+  }
+
+  async userSystem(page: number, limit: number): Promise<UserSystemResponse> {
+    const {
+      skip,
+      page: currentPage,
+      limit: currentLimit,
+    } = getPagination(page, limit);
+
+    const [total, usersystem] = await Promise.all([
+      prisma.refresh_tokens.count(),
+      prisma.refresh_tokens.findMany({
+        skip,
+        take: currentLimit,
+        orderBy: {
+          created_at: "desc",
+        },
+        select: {
+          user_id: true,
+          device: true,
+          is_revoked: true,
+          expires_at: true,
+          created_at: true,
+          users: {
+            select: {
+              role: true,
+            },
+          },
+        },
+      }),
+    ]);
+
+    return {
+      message: "Admin History Successfully",
+      pagination: paginationMeta(total, currentPage, currentLimit),
+      data: usersystem.map((item) => ({
+        user_id: item.user_id,
+        role: item.users.role,
+        device: item.device,
+        is_revoked: item.is_revoked,
+        expires_at: item.expires_at,
+        created_at: item.created_at,
+      })),
     };
   }
 }

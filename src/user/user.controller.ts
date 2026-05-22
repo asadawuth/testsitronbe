@@ -26,13 +26,13 @@ export class UserController {
       const result = await this.userService.login(
         req.body,
         device,
-        String(ipAddress),
+        String(ipAddress)
       );
 
       res.cookie("refreshToken", result.refreshToken, {
         httpOnly: true,
         secure: false, // production => true
-        sameSite: "strict",
+        sameSite: "lax",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
@@ -51,7 +51,6 @@ export class UserController {
   logout = async (req: Request, res: Response) => {
     try {
       const token = req.cookies.refreshToken;
-
       if (!token) {
         return res.status(400).json({
           message: "Refresh token not found",
@@ -59,9 +58,7 @@ export class UserController {
       }
 
       await this.userService.logout(token);
-
       res.clearCookie("refreshToken");
-
       return res.status(200).json({
         message: "logout success",
       });
@@ -95,15 +92,12 @@ export class UserController {
   refreshToken = async (req: Request, res: Response) => {
     try {
       const token = req.cookies.refreshToken;
-
       if (!token) {
         return res.status(401).json({
           message: "Refresh token missing",
         });
       }
-
       const result = await this.userService.refreshToken(token);
-
       return res.status(200).json({
         accessToken: result.accessToken,
       });
@@ -137,15 +131,25 @@ export class UserController {
   updateUser = async (req: Request, res: Response) => {
     try {
       const userId = req.user?.userId;
-
       if (!userId) {
         return res.status(401).json({
           message: "Unauthorized",
         });
       }
-
       const result = await this.userService.updateUser(userId, req.body);
+      return res.status(200).json(result);
+    } catch (err: any) {
+      return res.status(400).json({
+        message: err.message,
+      });
+    }
+  };
 
+  userSystem = async (req: Request, res: Response) => {
+    try {
+      const page = Number(req.query.page) || 1;
+      const limit = Number(req.query.limit) || 50;
+      const result = await this.userService.userSystem(page, limit);
       return res.status(200).json(result);
     } catch (err: any) {
       return res.status(400).json({

@@ -41,3 +41,25 @@ export interface ChangePasswordDto {
   newPassword: string;
   confirmPassword: string;
 }
+
+export interface UserSystemItem {
+  user_id: number;
+  device: string | null;
+  role: string;
+  is_revoked: boolean;
+  expires_at: Date | null;
+  created_at: Date;
+}
+
+export interface Pagination {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface UserSystemResponse {
+  message: string;
+  pagination: Pagination;
+  data: UserSystemItem[];
+}
