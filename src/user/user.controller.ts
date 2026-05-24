@@ -108,42 +108,39 @@ export class UserController {
     }
   };
 
-  changePassword = async (req: Request, res: Response) => {
-    try {
-      const userId = req.user?.userId;
+  // changePassword = async (req: Request, res: Response) => {
+  //   try {
+  //     const userId = req.user?.userId;
+  //     if (!userId) {
+  //       return res.status(401).json({
+  //         message: "Unauthorized",
+  //       });
+  //     }
+  //     const result = await this.userService.changePassword(userId, req.body);
+  //     return res.status(200).json(result);
+  //   } catch (err: any) {
+  //     return res.status(400).json({
+  //       message: err.message,
+  //     });
+  //   }
+  // };
 
-      if (!userId) {
-        return res.status(401).json({
-          message: "Unauthorized",
-        });
-      }
-
-      const result = await this.userService.changePassword(userId, req.body);
-
-      return res.status(200).json(result);
-    } catch (err: any) {
-      return res.status(400).json({
-        message: err.message,
-      });
-    }
-  };
-
-  updateUser = async (req: Request, res: Response) => {
-    try {
-      const userId = req.user?.userId;
-      if (!userId) {
-        return res.status(401).json({
-          message: "Unauthorized",
-        });
-      }
-      const result = await this.userService.updateUser(userId, req.body);
-      return res.status(200).json(result);
-    } catch (err: any) {
-      return res.status(400).json({
-        message: err.message,
-      });
-    }
-  };
+  // updateUser = async (req: Request, res: Response) => {
+  //   try {
+  //     const userId = req.user?.userId;
+  //     if (!userId) {
+  //       return res.status(401).json({
+  //         message: "Unauthorized",
+  //       });
+  //     }
+  //     const result = await this.userService.updateUser(userId, req.body);
+  //     return res.status(200).json(result);
+  //   } catch (err: any) {
+  //     return res.status(400).json({
+  //       message: err.message,
+  //     });
+  //   }
+  // };
 
   userSystem = async (req: Request, res: Response) => {
     try {

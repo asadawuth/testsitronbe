@@ -64,7 +64,7 @@ export class UserService {
       },
       process.env.JWT_SECRET!,
       {
-        expiresIn: "15m",
+        expiresIn: "1m",
       }
     );
 
@@ -199,48 +199,48 @@ export class UserService {
     };
   }
 
-  async updateUser(userId: number, data: UpdateUserDto) {
-    const user = await prisma.users.findUnique({
-      where: {
-        id: userId,
-      },
-    });
+  // async updateUser(userId: number, data: UpdateUserDto) {
+  //   const user = await prisma.users.findUnique({
+  //     where: {
+  //       id: userId,
+  //     },
+  //   });
 
-    if (!user) {
-      throw new Error("ไม่พบผู้ใช้งาน");
-    }
-    if (data.email && data.email !== user.email) {
-      const existingEmail = await prisma.users.findUnique({
-        where: {
-          email: data.email,
-        },
-      });
+  //   if (!user) {
+  //     throw new Error("ไม่พบผู้ใช้งาน");
+  //   }
+  //   if (data.email && data.email !== user.email) {
+  //     const existingEmail = await prisma.users.findUnique({
+  //       where: {
+  //         email: data.email,
+  //       },
+  //     });
 
-      if (existingEmail) {
-        throw new Error("อีเมลนี้ถูกใช้งานแล้ว");
-      }
-    }
+  //     if (existingEmail) {
+  //       throw new Error("อีเมลนี้ถูกใช้งานแล้ว");
+  //     }
+  //   }
 
-    const updatedUser = await prisma.users.update({
-      where: {
-        id: userId,
-      },
-      data,
-      select: {
-        id: true,
-        first_name: true,
-        last_name: true,
-        tel: true,
-        email: true,
-        role: true,
-      },
-    });
+  //   const updatedUser = await prisma.users.update({
+  //     where: {
+  //       id: userId,
+  //     },
+  //     data,
+  //     select: {
+  //       id: true,
+  //       first_name: true,
+  //       last_name: true,
+  //       tel: true,
+  //       email: true,
+  //       role: true,
+  //     },
+  //   });
 
-    return {
-      message: "อัปเดตข้อมูลสำเร็จ",
-      user: updatedUser,
-    };
-  }
+  //   return {
+  //     message: "อัปเดตข้อมูลสำเร็จ",
+  //     user: updatedUser,
+  //   };
+  // }
 
   async userSystem(page: number, limit: number): Promise<UserSystemResponse> {
     const {
