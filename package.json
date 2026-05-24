@@ -9,10 +9,10 @@
     "start": "node dist/index.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
-    "seed": "tsx prisma/seed.ts"
+    "seed": "echo \"Use seed.sql to import: PGPASSWORD=12345678 psql -h localhost -p 5433 -U postgres -d admin_movie -f seed.sql\""
   },
   "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "seed": "echo \"Use seed.sql to import: PGPASSWORD=12345678 psql -h localhost -p 5433 -U postgres -d admin_movie -f seed.sql\""
   },
   "keywords": [],
   "author": "",
